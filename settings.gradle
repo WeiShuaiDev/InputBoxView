@@ -1,0 +1,3 @@
+rootProject.name='WSMaterial-UI'
+include ':app'
+include ':inputboxwidget'

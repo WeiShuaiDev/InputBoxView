@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 自定义验证码输入框-->
+    <declare-styleable name="InputBoxView">
+        <!--输入框的数量-->
+        <attr name="input_box_number" format="integer" />
+        <!--输入类型-->
+        <attr name="input_box_type">
+            <enum name="number" value="0" />
+            <enum name="numberPassword" value="1" />
+            <enum name="text" value="2" />
+            <enum name="textPassword" value="3" />
+        </attr>
+        <!--输入框的宽度-->
+        <attr name="input_box_width" format="dimension|reference" />
+        <!--输入框文字颜色-->
+        <attr name="input_boxt_text_color" format="color|reference" />
+        <!--输入框文字大小-->
+        <attr name="input_box_text_size" format="dimension|reference" />
+        <!--输入框背景-->
+        <attr name="input_box_backgroud" format="reference" />
+        <!--光标样式-->
+        <attr name="input_box_cursor_type" format="reference" />
+        <!--是否隐藏光标-->
+        <attr name="input_box_cursor_visible" format="boolean" />
+        <!--输入框间距-->
+        <attr name="input_box_spacing" format="dimension|reference" />
+
+
+
+    </declare-styleable>
+
+</resources>

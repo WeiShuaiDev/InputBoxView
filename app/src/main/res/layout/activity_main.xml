@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.linwei.inputboxview.widget.InputBoxView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        app:input_box_backgroud="@drawable/input_box_bg"
+        app:input_box_cursor_type="@drawable/input_box_cursor"
+        app:input_box_cursor_visible="true"
+        app:input_box_number="2"
+        app:input_box_spacing="10dp"
+        app:input_box_text_size="18dp"
+        app:input_box_type="number"
+        app:input_box_width="40dp"
+        app:input_boxt_text_color="@color/colorInputBoxTextColor"
+        tools:ignore="MissingConstraints" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
