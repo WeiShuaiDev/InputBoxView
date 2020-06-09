@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.setMargins
 import com.linwei.inputboxview.R
 import com.linwei.inputboxview.enum.InputDataType
 import com.linwei.inputboxview.ext.color
@@ -208,54 +209,45 @@ class InputBoxView @JvmOverloads constructor(
      * 获取 `ChildView` 子View [LayoutParams]
      */
     private fun fetchChildViewLayoutParams(): LayoutParams {
-        return LayoutParams(
+        if (mInputBoxSpacing <= 0)
+            mUseSpace = false
+
+        val totalChildWidth: Int = (mInputBoxSpacing + mInputBoxWidth) * childCount
+        if (mMeasuredWidth>0&&totalChildWidth > mMeasuredWidth)
+            mUseSpace = false
+
+        val layoutParams = LayoutParams(
             mInputBoxWidth,
             mInputBoxWidth
         )
+        if (mUseSpace) {
+            layoutParams.setMargins(
+                mInputBoxSpacing / 2,
+                mInputBoxSpacing / 2,
+                mInputBoxSpacing / 2,
+                mInputBoxSpacing / 2
+            )
+        } else {
+            val totalChildSpace: Int = mMeasuredWidth - (mInputBoxWidth * childCount)
+            val childSpace: Int = totalChildSpace / childCount
+
+            layoutParams.setMargins(childSpace / 2, childSpace / 2, childSpace / 2, childSpace / 2)
+        }
+        return layoutParams
     }
 
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         this.mMeasuredWidth = measuredWidth
-
-    }
-
-    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        super.onLayout(changed, l, t, r, b)
-        if (mInputBoxSpacing <= 0)
-            mUseSpace = false
-
-        val totalChildWidth: Int = (mInputBoxSpacing + mInputBoxWidth) * childCount
-        if (totalChildWidth > mMeasuredWidth)
-            mUseSpace = false
-
-        for (index: Int in 0 until childCount) {
-            val child: View = getChildAt(index)
-            if (mUseSpace) {
-                child.layout(
-                    ((mInputBoxWidth + mInputBoxSpacing) * index) + mInputBoxSpacing / 2,
-                    t,
-                    (mInputBoxWidth + mInputBoxSpacing) * (index + 1) - mInputBoxSpacing / 2,
-                    b
-                )
-            } else {
-                val totalChildSpace: Int = mMeasuredWidth - (mInputBoxWidth * childCount)
-                val childSpace: Int = totalChildSpace / childCount
-                child.layout(
-                    ((mInputBoxWidth + childSpace) * index) + childSpace / 2,
-                    t,
-                    (mInputBoxWidth + childSpace) * (index + 1) - childSpace / 2,
-                    b
-                )
-            }
+        for (index: Int in 0 until mInputBoxNumber) {
+            val editText: EditText = getChildAt(index) as EditText
+            editText.layoutParams = fetchChildViewLayoutParams()
         }
     }
 
-
     override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
         if (event?.action!! == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL) {
-            System.out.println("+++")
             removeViewFocus()
         }
         return false
@@ -286,13 +278,13 @@ class InputBoxView @JvmOverloads constructor(
             updateViewFocus()
     }
 
-//    override fun setEnabled(enabled: Boolean) {
-//        var view: EditText
-//        for (index: Int in 0 until childCount) {
-//            view = getChildAt(index) as EditText
-//            view.isEnabled = enabled
-//        }
-//    }
+    override fun setEnabled(enabled: Boolean) {
+        var view: EditText
+        for (index: Int in 0 until childCount) {
+            view = getChildAt(index) as EditText
+            view.isEnabled = enabled
+        }
+    }
 
     /**
      * 更新 `ViewGroup` 中 [EditText] 焦点。
@@ -317,10 +309,9 @@ class InputBoxView @JvmOverloads constructor(
      */
     private fun removeViewFocus() {
         var view: EditText
-        for (index: Int in (childCount - 1)..0) {
+        for (index: Int in (childCount - 1) downTo 0) {
             view = getChildAt(index) as EditText
             if (view.text.isNotEmpty()) {
-                System.out.println("index${index}")
                 view.setText("")
                 view.isCursorVisible = mInputBoxCursorVisible
                 view.requestFocus()

@@ -13,9 +13,9 @@
         app:input_box_cursor_type="@drawable/input_box_cursor"
         app:input_box_cursor_visible="true"
         app:input_box_number="6"
-        app:input_box_spacing="5dp"
-        app:input_box_text_size="12sp"
-        app:input_box_type="numberPassword"
+        app:input_box_spacing="20dp"
+        app:input_box_text_size="7sp"
+        app:input_box_type="number"
         app:input_box_width="40dp"
         app:input_boxt_text_color="@color/colorInputBoxTextColor"
         tools:ignore="MissingConstraints" />
