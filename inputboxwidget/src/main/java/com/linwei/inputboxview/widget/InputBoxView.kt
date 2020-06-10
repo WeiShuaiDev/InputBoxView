@@ -15,7 +15,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.setMargins
+import androidx.annotation.IdRes
 import com.linwei.inputboxview.R
 import com.linwei.inputboxview.enum.InputDataType
 import com.linwei.inputboxview.ext.color
@@ -69,6 +69,12 @@ class InputBoxView @JvmOverloads constructor(
     private var mMeasuredWidth: Int = 0
     private var mUseSpace: Boolean = false
 
+    companion object {
+        fun Builder(context: Context): Builder {
+            return InputBoxView.Builder(context)
+        }
+    }
+
 
     init {
         val typeArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.InputBoxView)
@@ -80,16 +86,16 @@ class InputBoxView @JvmOverloads constructor(
         mInputBoxWidth =
             typeArray.getDimensionPixelSize(
                 R.styleable.InputBoxView_input_box_width,
-                UIUtils.dp2px(context, 50f)
+                UIUtils.dp2px(context, 30f)
             )
         mInputBoxTextColor = typeArray.getColor(
-            R.styleable.InputBoxView_input_boxt_text_color,
+            R.styleable.InputBoxView_input_box_text_color,
             context.color(R.color.colorInputBoxTextColor)
         )
 
         mInputBoxTextSize = typeArray.getDimensionPixelSize(
             R.styleable.InputBoxView_input_box_text_size,
-            UIUtils.sp2px(context, 18f)
+            UIUtils.sp2px(context, 8f)
         ).toFloat()
 
         mInputBoxBackground = typeArray.getResourceId(
@@ -133,7 +139,7 @@ class InputBoxView @JvmOverloads constructor(
      */
     private fun initChildView(index: Int): EditText {
         return EditText(context).apply {
-            layoutParams = fetchChildViewLayoutParams()
+            layoutParams = fetchChildViewLayoutParams(index)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 textAlignment = TEXT_ALIGNMENT_CENTER
             }
@@ -208,12 +214,12 @@ class InputBoxView @JvmOverloads constructor(
     /**
      * 获取 `ChildView` 子View [LayoutParams]
      */
-    private fun fetchChildViewLayoutParams(): LayoutParams {
+    private fun fetchChildViewLayoutParams(index: Int): LayoutParams {
         if (mInputBoxSpacing <= 0)
             mUseSpace = false
 
-        val totalChildWidth: Int = (mInputBoxSpacing + mInputBoxWidth) * childCount
-        if (mMeasuredWidth>0&&totalChildWidth > mMeasuredWidth)
+        val totalChildWidth: Int = (mInputBoxSpacing + mInputBoxWidth) * (mInputBoxNumber + 1)
+        if (mMeasuredWidth in 1 until totalChildWidth)
             mUseSpace = false
 
         val layoutParams = LayoutParams(
@@ -222,16 +228,22 @@ class InputBoxView @JvmOverloads constructor(
         )
         if (mUseSpace) {
             layoutParams.setMargins(
+                mInputBoxSpacing / (if (index == 0) 1 else 2),
                 mInputBoxSpacing / 2,
-                mInputBoxSpacing / 2,
-                mInputBoxSpacing / 2,
+                mInputBoxSpacing / (if (index == mInputBoxNumber - 1) 1 else 2),
                 mInputBoxSpacing / 2
             )
-        } else {
-            val totalChildSpace: Int = mMeasuredWidth - (mInputBoxWidth * childCount)
-            val childSpace: Int = totalChildSpace / childCount
 
-            layoutParams.setMargins(childSpace / 2, childSpace / 2, childSpace / 2, childSpace / 2)
+        } else {
+            val totalChildSpace: Int = mMeasuredWidth - (mInputBoxWidth * mInputBoxNumber)
+            val childSpace: Int = totalChildSpace / (mInputBoxNumber + 1)
+
+            layoutParams.setMargins(
+                childSpace / (if (index == 0) 1 else 2),
+                childSpace / 2,
+                childSpace / (if (index == mInputBoxNumber - 1) 1 else 2),
+                childSpace / 2
+            )
         }
         return layoutParams
     }
@@ -242,7 +254,7 @@ class InputBoxView @JvmOverloads constructor(
         this.mMeasuredWidth = measuredWidth
         for (index: Int in 0 until mInputBoxNumber) {
             val editText: EditText = getChildAt(index) as EditText
-            editText.layoutParams = fetchChildViewLayoutParams()
+            editText.layoutParams = fetchChildViewLayoutParams(index)
         }
     }
 
@@ -354,5 +366,74 @@ class InputBoxView @JvmOverloads constructor(
     private var mListener: OnInputDataListener? = null
     fun setOnInputDataListener(listener: OnInputDataListener) {
         this.mListener = listener
+    }
+
+    class Builder constructor(private var context: Context) {
+        private var mInputBoxView: InputBoxView = InputBoxView(context)
+
+        //输入框的数量
+        fun setInputBoxNumber(number: Int): Builder {
+            mInputBoxView.mInputBoxNumber = number
+            return this
+        }
+
+        //输入类型
+        fun setInputBoxType(type: Int): Builder {
+            mInputBoxView.mInputBoxNumber = type
+            return this
+        }
+
+        //输入框的宽度
+        fun setInputBoxWidth(width: Int): Builder {
+            mInputBoxView.mInputBoxWidth = width
+            return this
+        }
+
+        //输入框文字颜色
+        fun setInputBoxTextColor(@IdRes color: Int): Builder {
+            mInputBoxView.mInputBoxTextColor = context.color(color)
+            return this
+        }
+
+        //输入框文字大小
+        fun setInputBoxTextSize(size: Float): Builder {
+            mInputBoxView.mInputBoxTextSize =
+                UIUtils.sp2px(context, size).toFloat()
+            return this
+        }
+
+        //输入框背景
+        fun setInputBoxBackground(background: Int): Builder {
+            mInputBoxView.mInputBoxBackground = background
+            return this
+        }
+
+        //光标样式
+        fun setInputBoxCursorType(inputDataType: InputDataType): Builder {
+            mInputBoxView.mInputBoxCursorType = inputDataType.type
+            return this
+        }
+
+        //是否隐藏光标
+        fun setInputBoxCursorVisible(visible: Boolean): Builder {
+            mInputBoxView.mInputBoxCursorVisible = visible
+            return this
+        }
+
+        //输入框间距
+        fun setInputBoxSpacing(spacing: Int): Builder {
+            mInputBoxView.mInputBoxSpacing = spacing
+
+            mInputBoxView.mUseSpace = spacing > 0
+            return this
+        }
+
+        fun build(): InputBoxView {
+            if (mInputBoxView.childCount > 0)
+                mInputBoxView.removeAllViews()
+
+            mInputBoxView.addChildViewToContainer()
+            return mInputBoxView
+        }
     }
 }

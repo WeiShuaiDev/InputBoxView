@@ -14,7 +14,7 @@
         <!--输入框的宽度-->
         <attr name="input_box_width" format="dimension|reference" />
         <!--输入框文字颜色-->
-        <attr name="input_boxt_text_color" format="color|reference" />
+        <attr name="input_box_text_color" format="color|reference" />
         <!--输入框文字大小-->
         <attr name="input_box_text_size" format="dimension|reference" />
         <!--输入框背景-->
@@ -26,8 +26,37 @@
         <!--输入框间距-->
         <attr name="input_box_spacing" format="dimension|reference" />
 
+    </declare-styleable>
 
+    <declare-styleable name="TelephoneNumberView">
+        <!---电话号码的宽度-->
+        <attr name="telephone_number_width" format="dimension|reference" />
 
+        <!---电话号码文字颜色-->
+        <attr name="telephone_number_text_color" format="color|reference" />
+        <!--输入框文字文字颜色-->
+        <attr name="telephone_number_input_box_text_color" format="color|reference" />
+
+        <!--电话号码文字大小-->
+        <attr name="telephone_number_text_size" format="dimension|reference" />
+        <!--输入框文字大小-->
+        <attr name="telephone_number_input_box_text_size" format="dimension|reference" />
+
+        <!--输入框背景-->
+        <attr name="telephone_number_input_box_backgroud" format="reference" />
+        <!--光标样式-->
+        <attr name="telephone_number_input_box_cursor_type" format="reference" />
+        <!--是否隐藏光标-->
+        <attr name="telephone_number_input_box_cursor_visible" format="boolean" />
+
+        <!--输入框间距-->
+        <attr name="telephone_number_spacing" format="dimension|reference" />
+
+        <!--输入框起始位置-->
+        <attr name="telephone_number_input_box_start_index" format="dimension|reference" />
+
+        <!--输入框结束位置-->
+        <attr name="telephone_number_input_box_end_index" format="dimension|reference" />
     </declare-styleable>
 
 </resources>
