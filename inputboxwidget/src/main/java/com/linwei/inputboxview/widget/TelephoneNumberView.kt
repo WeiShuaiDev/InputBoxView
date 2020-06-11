@@ -5,9 +5,9 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.linwei.inputboxview.R
+import com.linwei.inputboxview.enum.InputDataType
 import com.linwei.inputboxview.ext.color
 import com.linwei.inputboxview.utils.UIUtils
-import kotlin.concurrent.thread
 
 /**
  * ---------------------------------------------------------------------
@@ -56,7 +56,6 @@ class TelephoneNumberView @JvmOverloads constructor(
     //输入框结束位置
     private var mInputBoxEndIndex: Int = 0
 
-    private var mUseSpace: Boolean = false
     private var mMeasuredWidth: Int = 0
     private var mTelephoneNumber: String? = ""
     private var mTelephoneNumberSize: Int = 0
@@ -93,11 +92,11 @@ class TelephoneNumberView @JvmOverloads constructor(
 
         mInputBoxBackground = typeArray.getResourceId(
             R.styleable.TelephoneNumberView_telephone_number_input_box_backgroud,
-            R.drawable.input_box_bg
+            R.drawable.select_input_box_rim_bg
         )
         mInputBoxCursorType = typeArray.getResourceId(
             R.styleable.TelephoneNumberView_telephone_number_input_box_cursor_type,
-            R.drawable.input_box_cursor
+            R.drawable.shape_input_box_cursor
         )
 
         mInputBoxCursorVisible =
@@ -106,14 +105,10 @@ class TelephoneNumberView @JvmOverloads constructor(
                 false
             )
 
-        mUseSpace =
-            typeArray.hasValue(R.styleable.TelephoneNumberView_telephone_number_spacing)
-        if (mUseSpace) {
-            mInputBoxSpacing = typeArray.getDimensionPixelSize(
-                R.styleable.TelephoneNumberView_telephone_number_spacing,
-                UIUtils.dp2px(context, 10f)
-            )
-        }
+        mInputBoxSpacing = typeArray.getDimensionPixelSize(
+            R.styleable.TelephoneNumberView_telephone_number_spacing,
+            UIUtils.dp2px(context, 10f)
+        )
 
         mInputBoxStartIndex =
             typeArray.getDimension(
@@ -165,7 +160,15 @@ class TelephoneNumberView @JvmOverloads constructor(
      */
     private fun initChildInputBoxView(): InputBoxView {
         val inputBoxView: InputBoxView = InputBoxView.Builder(context)
-            .setInputBoxNumber(4)
+            .setInputBoxNumber(mInputBoxSize)
+            .setInputBoxBackground(mInputBoxBackground)
+            .setInputBoxSpacing(mInputBoxSpacing)
+            .setInputBoxTextSize(mInputBoxTextSize)
+            .setInputBoxCursorVisible(mInputBoxCursorVisible)
+            .setInputBoxWidth(mTelephoneNumberWidth)
+            .setInputBoxType(InputDataType.NUMBER)
+            .setInputBoxTextColor(mInputBoxTextColor)
+            .setInputBoxCursorType(mInputBoxCursorType)
             .build()
         return inputBoxView
     }
@@ -184,39 +187,39 @@ class TelephoneNumberView @JvmOverloads constructor(
     /**
      * 获取 `ChildView` 子View [LayoutParams]
      */
-    private fun fetchChildViewLayoutParams(index: Int, width: Int, height: Int): LayoutParams {
-        if (mInputBoxSpacing <= 0)
-            mUseSpace = false
+    private fun fetchChildViewLayoutParams(index: Int, width: Int, height: Int): LayoutParams? {
+//        if (mInputBoxSpacing <= 0)
+//            mUseSpace = false
 
-        val totalChildWidth: Int =
-            (mInputBoxSpacing + mTelephoneNumberWidth) * mTelephoneNumberSize
-        if (mMeasuredWidth > 0 && totalChildWidth > mMeasuredWidth)
-            mUseSpace = false
+//        val totalChildWidth: Int =
+//            (mInputBoxSpacing + mTelephoneNumberWidth) * mTelephoneNumberSize
+//        if (mMeasuredWidth > 0 && totalChildWidth > mMeasuredWidth)
+//            mUseSpace = false
 
-        val layoutParams = LayoutParams(
-            width, height
-        )
-        if (mUseSpace) {
-            layoutParams.setMargins(
-                mInputBoxSpacing / (if (index == 0) 1 else 2),
-                mInputBoxSpacing / 2,
-                mInputBoxSpacing / (if (index == mTelephoneNumberSize - 1) 1 else 2),
-                mInputBoxSpacing / 2
-            )
+//        val layoutParams = LayoutParams(
+//            width, height
+////        )
+//        if (mUseSpace) {
+//            layoutParams.setMargins(
+//                mInputBoxSpacing / (if (index == 0) 1 else 2),
+//                mInputBoxSpacing / 2,
+//                mInputBoxSpacing / (if (index == mTelephoneNumberSize - 1) 1 else 2),
+//                mInputBoxSpacing / 2
+//            )
 
-        } else {
-            val totalChildSpace: Int =
-                mMeasuredWidth - (mTelephoneNumberWidth * mTelephoneNumberSize)
-            val childSpace: Int = totalChildSpace / mTelephoneNumberSize
-
-            layoutParams.setMargins(
-                childSpace / (if (index == 0) 1 else 2),
-                childSpace / 2,
-                childSpace / (if (index == mTelephoneNumberSize - 1) 1 else 2),
-                childSpace / 2
-            )
-        }
-        return layoutParams
+//        } else {
+//            val totalChildSpace: Int =
+//                mMeasuredWidth - (mTelephoneNumberWidth * mTelephoneNumberSize)
+//            val childSpace: Int = totalChildSpace / mTelephoneNumberSize
+//
+//            layoutParams.setMargins(
+//                childSpace / (if (index == 0) 1 else 2),
+//                childSpace / 2,
+//                childSpace / (if (index == mTelephoneNumberSize - 1) 1 else 2),
+//                childSpace / 2
+//            )
+//        }
+        return null
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

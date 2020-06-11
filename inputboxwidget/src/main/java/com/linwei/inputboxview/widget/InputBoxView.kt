@@ -100,11 +100,11 @@ class InputBoxView @JvmOverloads constructor(
 
         mInputBoxBackground = typeArray.getResourceId(
             R.styleable.InputBoxView_input_box_backgroud,
-            R.drawable.input_box_bg
+            R.drawable.select_input_box_rim_bg
         )
         mInputBoxCursorType = typeArray.getResourceId(
             R.styleable.InputBoxView_input_box_cursor_type,
-            R.drawable.input_box_cursor
+            R.drawable.shape_input_box_cursor
         )
 
         mInputBoxCursorVisible =
@@ -143,14 +143,13 @@ class InputBoxView @JvmOverloads constructor(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 textAlignment = TEXT_ALIGNMENT_CENTER
             }
-            gravity = Gravity.CENTER
             id = index
             maxEms = 1
             maxLines = 1
             filters = arrayOf<InputFilter>(LengthFilter(1))
             textSize = mInputBoxTextSize
             isCursorVisible = mInputBoxCursorVisible
-            inputType = InputType.TYPE_CLASS_NUMBER
+            gravity = Gravity.CENTER
             setInputType(this)
             setInputCursorDrawable(this)
             setTextColor(mInputBoxTextColor)
@@ -226,6 +225,7 @@ class InputBoxView @JvmOverloads constructor(
             mInputBoxWidth,
             mInputBoxWidth
         )
+        layoutParams.gravity = Gravity.CENTER
         if (mUseSpace) {
             layoutParams.setMargins(
                 mInputBoxSpacing / (if (index == 0) 1 else 2),
@@ -378,8 +378,8 @@ class InputBoxView @JvmOverloads constructor(
         }
 
         //输入类型
-        fun setInputBoxType(type: Int): Builder {
-            mInputBoxView.mInputBoxNumber = type
+        fun setInputBoxType(inputDataType: InputDataType): Builder {
+            mInputBoxView.mInputBoxType = inputDataType.type
             return this
         }
 
@@ -397,8 +397,7 @@ class InputBoxView @JvmOverloads constructor(
 
         //输入框文字大小
         fun setInputBoxTextSize(size: Float): Builder {
-            mInputBoxView.mInputBoxTextSize =
-                UIUtils.sp2px(context, size).toFloat()
+            mInputBoxView.mInputBoxTextSize =size
             return this
         }
 
@@ -409,8 +408,8 @@ class InputBoxView @JvmOverloads constructor(
         }
 
         //光标样式
-        fun setInputBoxCursorType(inputDataType: InputDataType): Builder {
-            mInputBoxView.mInputBoxCursorType = inputDataType.type
+        fun setInputBoxCursorType(@IdRes type: Int): Builder {
+            mInputBoxView.mInputBoxCursorType = type
             return this
         }
 

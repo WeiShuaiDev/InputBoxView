@@ -4,7 +4,12 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
+    <color name="colorWhite">#FFFFFF</color>
+
     <color name="colorInputBoxBg">#FFFFFF</color>
     <color name="colorInputBoxTextColor">#000000</color>
+
+    <color name="colorInputBoxNormal">#E0E0E0</color>
+    <color name="colorInputBoxSelect">#2DD6AA</color>
 
 </resources>

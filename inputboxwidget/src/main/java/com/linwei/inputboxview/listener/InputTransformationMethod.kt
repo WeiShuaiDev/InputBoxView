@@ -21,7 +21,7 @@ class InputTransformationMethod : PasswordTransformationMethod() {
                 get() = source?.length ?: 0
 
             override fun get(index: Int): Char {
-                return '•'
+                return '●'
 
             }
 

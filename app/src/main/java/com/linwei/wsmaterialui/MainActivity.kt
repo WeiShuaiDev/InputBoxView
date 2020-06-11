@@ -14,21 +14,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val inputBoxView: InputBoxView = InputBoxView.Builder(this)
-            .setInputBoxCursorType(InputDataType.NUMBER)
-            .setInputBoxCursorVisible(true)
-            .setInputBoxNumber(4)
-            .setInputBoxWidth(100)
-            .setInputBoxTextSize(10f)
-            .build()
-
-        mLlRootView.addView(
-            inputBoxView,
-            LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-        )
+//        val inputBoxView: InputBoxView = InputBoxView.Builder(this)
+//            .setInputBoxType(InputDataType.NUMBER)
+//            .setInputBoxCursorVisible(true)
+//            .setInputBoxBackground(R.drawable.select_input_box_line_bg)
+//            .setInputBoxSpacing(30)
+//            .setInputBoxNumber(4)
+//            .setInputBoxWidth(120)
+//            .setInputBoxTextSize(6f)
+//            .build()
+//
+//        mLlRootView.addView(
+//            inputBoxView,
+//            LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT
+//            )
+//        )
 
     }
 }
