@@ -28,3 +28,13 @@ interface OnInputDataListener {
      */
     fun onComplete(view: Editable?, content: String?)
 }
+
+interface OnInputDataStateListener {
+
+    /**
+     * 输入数据状态
+     * @param isProper [Boolean] 数据是否正确
+     */
+    fun onInputState(isProper: Boolean)
+
+}

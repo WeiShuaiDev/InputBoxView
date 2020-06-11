@@ -19,8 +19,23 @@
         app:input_box_text_color="@color/colorInputBoxTextColor"
         app:input_box_text_size="13sp"
         app:input_box_type="number"
-        app:input_box_width="50dp"
-        tools:ignore="MissingConstraints" />
+        app:input_box_width="50dp" />
 
+
+    <com.linwei.inputboxview.widget.TelephoneNumberView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        app:telephone_number_input_box_backgroud="@drawable/select_input_box_rim_bg"
+        app:telephone_number_input_box_cursor_type="@drawable/shape_input_box_cursor"
+        app:telephone_number_input_box_cursor_visible="false"
+        app:telephone_number_input_box_end_index="7"
+        app:telephone_number_input_box_start_index="4"
+        app:telephone_number_input_box_text_color="@color/colorInputBoxTextColor"
+        app:telephone_number_input_box_text_size="13sp"
+        app:telephone_number_spacing="10dp"
+        app:telephone_number_text_color="@color/colorInputBoxTextColor"
+        app:telephone_number_text_size="13sp"
+        app:telephone_number_width="50dp" />
 
 </LinearLayout>

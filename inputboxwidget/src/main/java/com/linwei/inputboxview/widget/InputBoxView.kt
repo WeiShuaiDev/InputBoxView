@@ -70,6 +70,7 @@ class InputBoxView @JvmOverloads constructor(
     private var mUseSpace: Boolean = false
 
     companion object {
+        @JvmStatic
         fun Builder(context: Context): Builder {
             return InputBoxView.Builder(context)
         }
@@ -369,61 +370,87 @@ class InputBoxView @JvmOverloads constructor(
     }
 
     class Builder constructor(private var context: Context) {
-        private var mInputBoxView: InputBoxView = InputBoxView(context)
+        private val mInputBoxView: InputBoxView = InputBoxView(context)
 
-        //输入框的数量
+        /**
+         * 输入框的数量
+         */
         fun setInputBoxNumber(number: Int): Builder {
             mInputBoxView.mInputBoxNumber = number
             return this
         }
 
-        //输入类型
+        /**
+         * 输入类型
+         */
         fun setInputBoxType(inputDataType: InputDataType): Builder {
             mInputBoxView.mInputBoxType = inputDataType.type
             return this
         }
 
-        //输入框的宽度
+        /**
+         * 输入框的宽度
+         */
         fun setInputBoxWidth(width: Int): Builder {
             mInputBoxView.mInputBoxWidth = width
             return this
         }
 
-        //输入框文字颜色
+        /**
+         * 输入框文字颜色
+         */
         fun setInputBoxTextColor(@IdRes color: Int): Builder {
             mInputBoxView.mInputBoxTextColor = context.color(color)
             return this
         }
 
-        //输入框文字大小
+        /**
+         * 输入框文字大小
+         */
         fun setInputBoxTextSize(size: Float): Builder {
-            mInputBoxView.mInputBoxTextSize =size
+            mInputBoxView.mInputBoxTextSize = size
             return this
         }
 
-        //输入框背景
+        /**
+         * 输入框背景
+         */
         fun setInputBoxBackground(background: Int): Builder {
             mInputBoxView.mInputBoxBackground = background
             return this
         }
 
-        //光标样式
+        /**
+         * 光标样式
+         */
         fun setInputBoxCursorType(@IdRes type: Int): Builder {
             mInputBoxView.mInputBoxCursorType = type
             return this
         }
 
-        //是否隐藏光标
+        /**
+         * 是否隐藏光标
+         */
         fun setInputBoxCursorVisible(visible: Boolean): Builder {
             mInputBoxView.mInputBoxCursorVisible = visible
             return this
         }
 
-        //输入框间距
+        /**
+         * 输入框间距
+         */
         fun setInputBoxSpacing(spacing: Int): Builder {
             mInputBoxView.mInputBoxSpacing = spacing
 
             mInputBoxView.mUseSpace = spacing > 0
+            return this
+        }
+
+        /**
+         * 事件监听
+         */
+        fun setOnInputDataListener(listener: OnInputDataListener): Builder {
+            mInputBoxView.mListener = listener
             return this
         }
 
