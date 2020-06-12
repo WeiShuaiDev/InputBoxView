@@ -1,10 +1,11 @@
 package com.linwei.inputboxview.widget
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Editable
 import android.util.AttributeSet
+import android.view.Gravity
 import android.widget.LinearLayout
-import android.widget.LinearLayout.LayoutParams
 import android.widget.TextView
 import androidx.annotation.IdRes
 import com.linwei.inputboxview.R
@@ -62,7 +63,6 @@ class TelephoneNumberView @JvmOverloads constructor(
     //输入框结束位置
     private var mInputBoxEndIndex: Int = 0
 
-    private var mMeasuredWidth: Int = 0
     private var mTelephoneNumber: String? = ""
     private var mTelephoneNumberSize: Int = 0
     private var mInputBoxSize: Int = 0
@@ -120,24 +120,22 @@ class TelephoneNumberView @JvmOverloads constructor(
 
         mInputBoxSpacing = typeArray.getDimensionPixelSize(
             R.styleable.TelephoneNumberView_telephone_number_spacing,
-            UIUtils.dp2px(context, 10f)
+            UIUtils.dp2px(context, 0f)
         )
 
         mInputBoxStartIndex =
-            typeArray.getDimension(
+            typeArray.getInteger(
                 R.styleable.TelephoneNumberView_telephone_number_input_box_start_index,
-                4f
-            ).toInt()
+                4
+            )
 
         mInputBoxEndIndex =
-            typeArray.getDimension(
+            typeArray.getInteger(
                 R.styleable.TelephoneNumberView_telephone_number_input_box_end_index,
-                7f
-            ).toInt()
+                8
+            )
 
         typeArray.recycle()
-
-        addChildViewToContainer()
 
     }
 
@@ -148,19 +146,18 @@ class TelephoneNumberView @JvmOverloads constructor(
     private fun addChildViewToContainer() {
         this.mInputBoxSize = fetchInputBoxNumber()
 
-        for (index: Int in 1..mInputBoxStartIndex) {
-            val childTextView = initChildTextView(index)
+        for (index: Int in 0 until mInputBoxStartIndex) {
+            val childTextView: TextView = initChildTextView(index)
             addView(childTextView)
         }
 
-        val childInputBoxView = initChildInputBoxView()
+        val childInputBoxView: InputBoxView = initChildInputBoxView()
         addView(childInputBoxView)
 
-        for (index: Int in mInputBoxEndIndex..mTelephoneNumberSize) {
-            val childTextView = initChildInputBoxView()
+        for (index: Int in mInputBoxEndIndex until mTelephoneNumberSize) {
+            val childTextView: TextView = initChildTextView(index)
             addView(childTextView)
         }
-
     }
 
     /**
@@ -168,10 +165,13 @@ class TelephoneNumberView @JvmOverloads constructor(
      * @param index [Int]
      * @return textView [TextView]
      */
+    @SuppressLint("ResourceAsColor")
     private fun initChildTextView(index: Int): TextView {
         return TextView(context).apply {
             layoutParams = fetchTextViewLayoutParams(index)
+            text = fetchNumberFromIndex(index)
             textSize = mTelephoneNumberTextSize
+            gravity = Gravity.CENTER
             setTextColor(mTelephoneNumberTextColor)
         }
     }
@@ -191,7 +191,7 @@ class TelephoneNumberView @JvmOverloads constructor(
             .setInputBoxType(InputDataType.NUMBER)
             .setInputBoxTextColor(mInputBoxTextColor)
             .setInputBoxCursorType(mInputBoxCursorType)
-            .setOnInputDataListener(TelephoneNumberView@ this)
+            .setOnInputDataListener(this)
             .build()
     }
 
@@ -203,7 +203,7 @@ class TelephoneNumberView @JvmOverloads constructor(
         if (mInputBoxEndIndex <= mInputBoxStartIndex) {
             throw ArithmeticException("The start position of the input box must be greater than the end position")
         }
-        return mInputBoxStartIndex - mInputBoxEndIndex
+        return mInputBoxEndIndex - mInputBoxStartIndex
     }
 
     /**
@@ -213,7 +213,7 @@ class TelephoneNumberView @JvmOverloads constructor(
      */
     private fun fetchTextViewLayoutParams(index: Int): LayoutParams? {
 
-        val layoutParams = LayoutParams(mTelephoneNumberWidth, mTelephoneNumberWidth)
+        val layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
 
         if (mInputBoxSpacing > 0) {
             layoutParams.setMargins(
@@ -222,6 +222,7 @@ class TelephoneNumberView @JvmOverloads constructor(
                 mInputBoxSpacing / (if (index == mTelephoneNumberSize - 1) 1 else 2),
                 mInputBoxSpacing / 2
             )
+            layoutParams.gravity = Gravity.CENTER
         }
 
         return layoutParams
@@ -232,11 +233,16 @@ class TelephoneNumberView @JvmOverloads constructor(
      * 设置电话号码 [telephoneNumber] 数据，并刷新界面
      * @param telephoneNumber [String] 手机号
      */
-    fun setTelephoneNumber(telephoneNumber: String?) {
-        if (telephoneNumber.isNullOrEmpty()) {
+    fun setTelephoneNumber(telephoneNumber: String) {
+        if (telephoneNumber.isNotEmpty()) {
             this.mTelephoneNumber = telephoneNumber
-            this.mTelephoneNumberSize = telephoneNumber?.length ?: 0
+            this.mTelephoneNumberSize = telephoneNumber.length
         }
+
+        if (childCount > 0)
+            removeAllViews()
+
+        addChildViewToContainer()
     }
 
     private var mListener: OnInputDataStateListener? = null
@@ -245,9 +251,7 @@ class TelephoneNumberView @JvmOverloads constructor(
     }
 
     override fun onTextChange(view: Editable?, content: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
 
     override fun onComplete(view: Editable?, content: String?) {
         checkStateFromTelephone(content).let {
@@ -258,18 +262,46 @@ class TelephoneNumberView @JvmOverloads constructor(
     /**
      * 根据用户输入数据 [inputData]，跟原来手机号号码 [mTelephoneNumber] 进行比较，来确定数据正确性。
      * 根据 [mInputBoxStartIndex]、[mInputBoxEndIndex] 截取手机号信息
-     * 注意，这里角标是从 `1` 开始。
+     * 注意，这里角标是从 `0` 开始。
      * @param inputData [String]
+     * @return [Boolean] true:输入数据匹配正确。 false:输入数据匹配错误。
      */
     private fun checkStateFromTelephone(inputData: String?): Boolean {
         if (mTelephoneNumber.isNullOrEmpty()) {
             throw NullPointerException("mTelephoneNumber Field is empty, Please enter the phone number！")
         }
-        val checkData = mTelephoneNumber?.substring(mInputBoxStartIndex - 1, mInputBoxEndIndex + 1)
+        val checkData: String =
+            mTelephoneNumber!!.substring(mInputBoxStartIndex, mInputBoxEndIndex)
 
-        if (checkData.isNullOrEmpty() && checkData == inputData) {
+        if (checkData.isNotEmpty() && checkData == inputData) {
             return true
         }
+        return false
+    }
+
+    /**
+     * 根据参数 `index` 角标,在 [mTelephoneNumber] 数据中根据 [index] 获取字符数据
+     * @param index [Int] 角标
+     * @return [String] 字符
+     */
+    private fun fetchNumberFromIndex(index: Int): String {
+        if (mTelephoneNumber.isNullOrEmpty()) return ""
+        if (checkIndexFromTelephone(index)) {
+            return mTelephoneNumber?.get(index).toString()
+        }
+
+        return ""
+    }
+
+    /**
+     * 根据参数 `index` 角标，判断是否在 [mTelephoneNumber] 手机号范围内
+     * @param index [Int] 角标
+     * @return [Boolean] true:角标没有越界。 false:角标出现越界。
+     */
+    private fun checkIndexFromTelephone(index: Int): Boolean {
+        if (mTelephoneNumber.isNullOrEmpty()) return false
+
+        if (index in mTelephoneNumber!!.indices) return true
         return false
     }
 
@@ -287,7 +319,15 @@ class TelephoneNumberView @JvmOverloads constructor(
         /**
          * 输入框文字颜色
          */
-        fun setInputBoxTextColor(@IdRes color: Int): Builder {
+        fun setInputBoxTextColor(color: Int): Builder {
+            mTelephoneNumberView.mInputBoxTextColor = color
+            return this
+        }
+
+        /**
+         * 输入框文字颜色
+         */
+        fun setInputBoxTextColorId(@IdRes color: Int): Builder {
             mTelephoneNumberView.mInputBoxTextColor = context.color(color)
             return this
         }
@@ -295,7 +335,15 @@ class TelephoneNumberView @JvmOverloads constructor(
         /**
          * 文字颜色
          */
-        fun setTelephoneNumberTextColor(@IdRes color: Int): Builder {
+        fun setTelephoneNumberTextColor(color: Int): Builder {
+            mTelephoneNumberView.mTelephoneNumberTextColor = color
+            return this
+        }
+
+        /**
+         * 文字颜色
+         */
+        fun setTelephoneNumberTextColorId(@IdRes color: Int): Builder {
             mTelephoneNumberView.mTelephoneNumberTextColor = context.color(color)
             return this
         }
@@ -378,10 +426,6 @@ class TelephoneNumberView @JvmOverloads constructor(
         }
 
         fun build(): TelephoneNumberView {
-            if (mTelephoneNumberView.childCount > 0)
-                mTelephoneNumberView.removeAllViews()
-
-            mTelephoneNumberView.addChildViewToContainer()
             return mTelephoneNumberView
         }
     }

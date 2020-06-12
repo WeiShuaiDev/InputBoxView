@@ -53,10 +53,10 @@
         <attr name="telephone_number_spacing" format="dimension|reference" />
 
         <!--输入框起始位置-->
-        <attr name="telephone_number_input_box_start_index" format="dimension|reference" />
+        <attr name="telephone_number_input_box_start_index" format="integer"/>
 
         <!--输入框结束位置-->
-        <attr name="telephone_number_input_box_end_index" format="dimension|reference" />
+        <attr name="telephone_number_input_box_end_index" format="integer" />
     </declare-styleable>
 
 </resources>

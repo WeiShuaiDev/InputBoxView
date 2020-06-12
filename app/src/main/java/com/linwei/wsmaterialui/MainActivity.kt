@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
 import com.linwei.inputboxview.enum.InputDataType
+import com.linwei.inputboxview.listener.OnInputDataStateListener
 import com.linwei.inputboxview.widget.InputBoxView
 import com.linwei.inputboxview.widget.TelephoneNumberView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,6 +16,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        mTNumberView.setTelephoneNumber("01234567890")
+        mTNumberView.setOnInputDataStateListener(object : OnInputDataStateListener {
+            override fun onInputState(isProper: Boolean) {
+                System.out.println("isProper" + isProper)
+            }
+        })
 
     }
 
@@ -35,6 +42,7 @@ class MainActivity : AppCompatActivity() {
             .setInputBoxType(InputDataType.NUMBER)
             .setInputBoxCursorVisible(true)
             .setInputBoxBackground(R.drawable.select_input_box_line_bg)
+            .setInputBoxTextColorId(R.color.colorInputBoxTextColor)
             .setInputBoxSpacing(30)
             .setInputBoxNumber(4)
             .setInputBoxWidth(120)

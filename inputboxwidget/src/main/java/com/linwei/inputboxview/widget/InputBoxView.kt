@@ -399,8 +399,16 @@ class InputBoxView @JvmOverloads constructor(
         /**
          * 输入框文字颜色
          */
-        fun setInputBoxTextColor(@IdRes color: Int): Builder {
+        fun setInputBoxTextColorId(@IdRes color: Int): Builder {
             mInputBoxView.mInputBoxTextColor = context.color(color)
+            return this
+        }
+
+        /**
+         * 输入框文字颜色
+         */
+        fun setInputBoxTextColor(color: Int): Builder {
+            mInputBoxView.mInputBoxTextColor = color
             return this
         }
 
@@ -423,7 +431,7 @@ class InputBoxView @JvmOverloads constructor(
         /**
          * 光标样式
          */
-        fun setInputBoxCursorType(@IdRes type: Int): Builder {
+        fun setInputBoxCursorType( type: Int): Builder {
             mInputBoxView.mInputBoxCursorType = type
             return this
         }
@@ -442,7 +450,7 @@ class InputBoxView @JvmOverloads constructor(
         fun setInputBoxSpacing(spacing: Int): Builder {
             mInputBoxView.mInputBoxSpacing = spacing
 
-            mInputBoxView.mUseSpace = spacing > 0
+            mInputBoxView.mUseSpace = spacing >= 0
             return this
         }
 
