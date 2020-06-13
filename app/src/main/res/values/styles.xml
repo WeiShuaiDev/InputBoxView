@@ -8,4 +8,37 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <!--登陆按钮-->
+    <style name="MatchAndWrap.LoginButtonStyle">
+        <item name="android:background">@drawable/select_complete_button</item>
+        <item name="android:paddingTop">@dimen/dp_3</item>
+        <item name="android:paddingBottom">@dimen/dp_3</item>
+        <item name="android:layout_marginLeft">@dimen/dp_50</item>
+        <item name="android:layout_marginRight">@dimen/dp_50</item>
+        <item name="android:textColor">@color/colorGlobalWhite</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/sp_18</item>
+    </style>
+
+    <!--输入框样式-->
+    <style name="MatchAndWrap.EditStyle">
+        <item name="android:layout_height">@dimen/dp_50</item>
+        <item name="android:paddingLeft">@dimen/dp_10</item>
+        <item name="android:paddingRight">@dimen/dp_10</item>
+        <item name="android:background">@color/colorGlobalTransparent</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+        <item name="android:labelTextSize">@dimen/dp_12</item>
+        <item name="android:textColorHint">@color/colorLoginInputTextTips</item>
+        <item name="android:textColor">@color/colorGlobalTextGray</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <!--线条样式-->
+    <style name="HorizontalLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/colorGlobalLine</item>
+    </style>
+
 </resources>

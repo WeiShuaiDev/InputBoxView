@@ -1,13 +1,11 @@
 package com.linwei.inputboxview.widget
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Editable
 import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.annotation.IdRes
 import com.linwei.inputboxview.R
 import com.linwei.inputboxview.enum.InputDataType
 import com.linwei.inputboxview.ext.color
@@ -165,7 +163,6 @@ class TelephoneNumberView @JvmOverloads constructor(
      * @param index [Int]
      * @return textView [TextView]
      */
-    @SuppressLint("ResourceAsColor")
     private fun initChildTextView(index: Int): TextView {
         return TextView(context).apply {
             layoutParams = fetchTextViewLayoutParams(index)
@@ -327,7 +324,7 @@ class TelephoneNumberView @JvmOverloads constructor(
         /**
          * 输入框文字颜色
          */
-        fun setInputBoxTextColorId(@IdRes color: Int): Builder {
+        fun setInputBoxTextColorId(color: Int): Builder {
             mTelephoneNumberView.mInputBoxTextColor = context.color(color)
             return this
         }
@@ -343,7 +340,7 @@ class TelephoneNumberView @JvmOverloads constructor(
         /**
          * 文字颜色
          */
-        fun setTelephoneNumberTextColorId(@IdRes color: Int): Builder {
+        fun setTelephoneNumberTextColorId(color: Int): Builder {
             mTelephoneNumberView.mTelephoneNumberTextColor = context.color(color)
             return this
         }
@@ -379,7 +376,7 @@ class TelephoneNumberView @JvmOverloads constructor(
         /**
          * 光标样式
          */
-        fun setInputBoxCursorType(@IdRes type: Int): Builder {
+        fun setInputBoxCursorType(type: Int): Builder {
             mTelephoneNumberView.mInputBoxCursorType = type
             return this
         }

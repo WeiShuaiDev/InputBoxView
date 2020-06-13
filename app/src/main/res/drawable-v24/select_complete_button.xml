@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+        android:color="@color/colorButtonShadow">
+    <item>
+        <selector>
+            <item android:state_enabled="false">
+                <shape>
+                    <solid android:color="@color/colorCompleteInvalidBg"/>
+                    <corners android:radius="@dimen/dp_48"/>
+                </shape>
+            </item>
+            <item
+                    android:state_checked="false"
+                    android:state_focused="false">
+                <shape>
+                    <solid android:color="@color/colorCompleteNormalBg"/>
+                    <corners android:radius="@dimen/dp_48"/>
+                </shape>
+            </item>
+            <item>
+                <shape>
+                    <solid android:color="@color/colorButtonShadow"/>
+                    <corners android:radius="@dimen/dp_48"/>
+                </shape>
+            </item>
+        </selector>
+    </item>
+</ripple>

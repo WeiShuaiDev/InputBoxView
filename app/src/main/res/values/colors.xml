@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#366BFC</color>
+    <color name="colorPrimaryDark">#366BFC</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="colorLoginTitle">#2F4155</color>
+    <color name="colorLoginSubTitle">#848494</color>
+    <color name="colorLoginHighlightInfo">#4D9FFD</color>
+    <color name="colorLoginInputTextTips">#B7C0D1</color>
+
+
+    <color name="colorCompleteNormalBg">#366BFC</color>
+    <color name="colorCompleteSelectBg">#1979D1</color>
+    <color name="colorCompleteInvalidBg">#CCCCCC</color>
+    <color name="colorButtonShadow">#D9D9D9</color>
+
+    <color name="colorGlobalTransparent">#00000000</color>
+    <color name="colorGlobalTextGray">#333333</color>
+    <color name="colorGlobalWhite">#FFFFFF</color>
+    <color name="colorGlobalLine">#E9E9E9</color>
 </resources>

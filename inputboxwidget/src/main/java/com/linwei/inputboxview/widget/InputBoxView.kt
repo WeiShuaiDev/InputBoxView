@@ -15,7 +15,6 @@ import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.annotation.IdRes
 import com.linwei.inputboxview.R
 import com.linwei.inputboxview.enum.InputDataType
 import com.linwei.inputboxview.ext.color
@@ -230,9 +229,9 @@ class InputBoxView @JvmOverloads constructor(
         if (mUseSpace) {
             layoutParams.setMargins(
                 mInputBoxSpacing / (if (index == 0) 1 else 2),
-                mInputBoxSpacing / 2,
+                mInputBoxSpacing,
                 mInputBoxSpacing / (if (index == mInputBoxNumber - 1) 1 else 2),
-                mInputBoxSpacing / 2
+                mInputBoxSpacing
             )
 
         } else {
@@ -241,9 +240,9 @@ class InputBoxView @JvmOverloads constructor(
 
             layoutParams.setMargins(
                 childSpace / (if (index == 0) 1 else 2),
-                childSpace / 2,
+                childSpace ,
                 childSpace / (if (index == mInputBoxNumber - 1) 1 else 2),
-                childSpace / 2
+                childSpace
             )
         }
         return layoutParams
@@ -399,7 +398,7 @@ class InputBoxView @JvmOverloads constructor(
         /**
          * 输入框文字颜色
          */
-        fun setInputBoxTextColorId(@IdRes color: Int): Builder {
+        fun setInputBoxTextColorId(color: Int): Builder {
             mInputBoxView.mInputBoxTextColor = context.color(color)
             return this
         }
@@ -431,7 +430,7 @@ class InputBoxView @JvmOverloads constructor(
         /**
          * 光标样式
          */
-        fun setInputBoxCursorType( type: Int): Builder {
+        fun setInputBoxCursorType(type: Int): Builder {
             mInputBoxView.mInputBoxCursorType = type
             return this
         }
