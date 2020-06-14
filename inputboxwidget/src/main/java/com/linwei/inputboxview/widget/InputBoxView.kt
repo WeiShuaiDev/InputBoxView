@@ -65,8 +65,9 @@ class InputBoxView @JvmOverloads constructor(
     //输入框间距
     private var mInputBoxSpacing: Int = 0
 
-    private var mMeasuredWidth: Int = 0
-    private var mUseSpace: Boolean = false
+
+    var mMeasuredWidth: Int = 0
+    var mUseSpace: Boolean = false
 
     companion object {
         @JvmStatic
@@ -133,6 +134,7 @@ class InputBoxView @JvmOverloads constructor(
             addView(child)
         }
     }
+
 
     /**
      * @return EditText
@@ -240,7 +242,7 @@ class InputBoxView @JvmOverloads constructor(
 
             layoutParams.setMargins(
                 childSpace / (if (index == 0) 1 else 2),
-                childSpace ,
+                childSpace,
                 childSpace / (if (index == mInputBoxNumber - 1) 1 else 2),
                 childSpace
             )

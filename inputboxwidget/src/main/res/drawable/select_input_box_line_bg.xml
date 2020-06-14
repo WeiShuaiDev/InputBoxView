@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/layer_bottom_lime_normal" android:state_window_focused="false" />
+    <item android:drawable="@drawable/layer_bottom_line_normal" android:state_window_focused="false" />
 
-    <item android:drawable="@drawable/layer_bottom_lime_select" android:state_focused="true" />
+    <item android:drawable="@drawable/layer_bottom_line_select" android:state_focused="true" />
 </selector>

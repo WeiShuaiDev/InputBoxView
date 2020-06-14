@@ -7,10 +7,14 @@
     <string name="login_retrieve_number">找回号码</string>
     <string name="login_telephone_number_tips">请输入手机号</string>
 
-    <string name="activity_verify_code_title">接听电话:13445671234</string>
+    <string name="activity_verify_code_title">接听电话: %s</string>
     <string name="verify_code_subtitle">请按听并记住您的验证码</string>
     <string name="login_complete_button">登录</string>
 
     <string name="activity_verify_telephone_number_title">请完整输入手机号码</string>
     <string name="confirm_button">确定</string>
+
+    <string name="menu_lime">横线样式</string>
+    <string name="menu_rim">边框样式</string>
+    <string name="menu_table">表格样式</string>
 </resources>
