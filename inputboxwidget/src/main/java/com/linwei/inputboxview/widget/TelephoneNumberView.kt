@@ -102,7 +102,7 @@ class TelephoneNumberView @JvmOverloads constructor(
         ).toFloat()
 
         mInputBoxBackground = typeArray.getResourceId(
-            R.styleable.TelephoneNumberView_telephone_number_input_box_backgroud,
+            R.styleable.TelephoneNumberView_telephone_number_input_box_background,
             R.drawable.select_input_box_rim_bg
         )
         mInputBoxCursorType = typeArray.getResourceId(

@@ -43,7 +43,7 @@
         <attr name="telephone_number_input_box_text_size" format="dimension|reference" />
 
         <!--输入框背景-->
-        <attr name="telephone_number_input_box_backgroud" format="reference" />
+        <attr name="telephone_number_input_box_background" format="reference" />
         <!--光标样式-->
         <attr name="telephone_number_input_box_cursor_type" format="reference" />
         <!--是否隐藏光标-->
