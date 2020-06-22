@@ -24,9 +24,10 @@ class MainActivity : AppCompatActivity() {
      */
     private fun initListener() {
         mTvRetrieveNumber.setOnClickListener {
+
             if (checkTelephoneNumber()) {
                 val intent = Intent(this, VerifyTelephoneNumberActivity::class.java)
-                intent.putExtra(TELEPHONE_NUMBER, "13433868130")
+                intent.putExtra(TELEPHONE_NUMBER, mEtTelNumber.text)
                 startActivity(intent)
             }
         }
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         mBtComplete.setOnClickListener {
             if (checkTelephoneNumber()) {
                 val intent = Intent(this, VerifyCodeActivity::class.java)
-                intent.putExtra(TELEPHONE_NUMBER, "13433868130")
+                intent.putExtra(TELEPHONE_NUMBER, mEtTelNumber.text)
                 startActivity(intent)
             }
         }

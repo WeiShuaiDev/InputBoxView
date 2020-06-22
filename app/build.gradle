@@ -16,13 +16,66 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
+    signingConfigs {
+        debug {
+            keyAlias "${SIGNING_KEYALIAS}"
+            keyPassword "${SIGNGING_CERTIFICATEPASSWORD}"
+            storeFile file("${SIGNING_CERTIFICATE}")
+            storePassword "${SIGNGING_STOREPASSWORD}"
+        }
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            keyAlias "${SIGNING_KEYALIAS}"
+            keyPassword "${SIGNGING_CERTIFICATEPASSWORD}"
+            storeFile file("${SIGNING_CERTIFICATE}")
+            storePassword "${SIGNGING_STOREPASSWORD}"
         }
     }
 
+    buildTypes {
+        debug {
+            minifyEnabled false //混淆
+            shrinkResources false // 是否去除无效的资源文件
+            buildConfigField "boolean", "showLog", "true"//是否显示Log
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+        preview {
+            minifyEnabled false //混淆
+            shrinkResources false // 是否去除无效的资源文件
+            buildConfigField "boolean", "showLog", "true"//是否显示Log
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        release {
+            minifyEnabled true //混淆
+            shrinkResources true // 是否去除无效的资源文件
+            buildConfigField "boolean", "showLog", "false"//是否显示Log
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    //修改打包信息
+    android.applicationVariants.all { variant ->
+        def outFileName
+        def flavorName = variant.flavorName //获取渠道名
+        variant.outputs.all { output ->
+            def flavorVerName = variant.mergedFlavor.versionName //获取渠道版本名
+            if (variant.buildType.name == "release") {//正式
+                outFileName = "${flavorName}_${flavorVerName}.${buildTime()}_prd.apk"
+            } else if (variant.buildType.name == "preview") {//测试预览
+                outFileName = "${flavorName}_${flavorVerName}.${buildTime()}_uat.apk"
+            } else {//开发包
+                outFileName = "${flavorName}_${flavorVerName}.${buildTime()}_dev.apk"
+            }
+            output.outputFileName = outFileName
+        }
+    }
+}
+
+//构建包时间
+def buildTime() {
+    return new Date().format("MMdd_HHmm", TimeZone.getTimeZone("GMT+8"))
 }
 
 dependencies {
