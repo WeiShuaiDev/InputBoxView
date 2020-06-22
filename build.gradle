@@ -3,8 +3,8 @@
 buildscript {
     ext.kotlin_version = '1.3.72'
     repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         google()
-        maven{url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         jcenter()
     }
     dependencies {
@@ -14,24 +14,19 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath "guru.stefma.bintrayrelease:bintrayrelease:1.1.2"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+
+        //for kotlin upload
+        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:0.9.18'
     }
 }
 
 allprojects {
     repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         google()
-        maven{url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         jcenter()
-    }
-
-    tasks.withType(Javadoc) {
-        options {
-            encoding "UTF-8"
-            charSet 'UTF-8'
-            links "http://docs.oracle.com/javase/7/docs/api"
-        }
     }
 }
 

@@ -1,0 +1,122 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+//for upload
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+//for kotlin upload
+apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'maven'
+
+def siteUrl = 'https://github.com/WeiShuaiDev/InputBoxView.git' //可选 如果有的话
+
+def gitUrl = 'https://github.com/WeiShuaiDev/InputBoxView.git' //可选 如果有的话
+
+group = "com.weishuai"  //路径
+version = "1.0.0" //版本名称， 不要用beta，否则容易审核不通过
+//以上两个配合项目目录名最终上传上去引用就是
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+//同时添加三个方法 for kotlin
+task dokkaJavadoc(type: dokka.getClass()) {
+    outputFormat = 'javadoc'
+    outputDirectory = javadoc.destinationDir
+}
+task generateJavadoc(type: Jar, dependsOn: dokkaJavadoc) {
+    group = 'jar'
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+task generateSourcesJar(type: Jar) {
+    group = 'jar'
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task copyDoc(type: Copy) {
+    from "${buildDir}/docs/"
+    into "docs"
+}
+
+artifacts {
+    archives generateJavadoc //javadocJar
+    archives generateSourcesJar //sourcesJar
+}
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                name 'InputBoxView'
+                url siteUrl
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'weishuai' //用户名
+                        name 'weishuai' //姓名
+                        email 'linwei9605@gmail.com' //邮箱
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    //关键信息我们从localProperties文件中读取
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        repo = "ViewRepository" // 仓库名
+        name = "InputBoxView"// 包名
+        desc = 'Provide verification code input box, mobile phone input box'
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}
+
+javadoc {
+    options {
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/7/docs/api"
+    }
+}
+repositories {
+    mavenCentral()
+}

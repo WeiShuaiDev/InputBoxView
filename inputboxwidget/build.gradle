@@ -2,30 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: "guru.stefma.bintrayrelease"
-
-version="1.0.0" //版本号
-group = "com.weishuai" //jcenter的路径,可以随便自定义
-
-//当前这个bintrayRelease依赖于AndroidArtifacts
-androidArtifact{
-    artifactId = "bintrayrelease"
-}
-
-publish{
-    userOrg = 'weismart' //bintray用户名
-    repoName = 'InputBoxView'  //要传过去的库名
-    artifactId = 'InputBoxView'  //要传过去的项目名
-    desc = 'Provide different styles of verification codes, mobile phone number input box' //描述
-    website = 'https://github.com/WeiShuaiDev/InputBoxView' // 项目网站，尽量用对，因为在之后上传到jcenter的时候会检查，不过那个时候再改也没问题
-}
-
-dokka{
-    reportUndocumented = false
-    outputFormat='javadoc'
-    outputDirectory="$buildDir/javadoc"
-    noStdlibLink=true
-}
 
 android {
     compileSdkVersion 29
@@ -70,3 +46,4 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
+apply from: 'bintray.gradle'
