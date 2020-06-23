@@ -44,9 +44,9 @@
 #### Step 1.增加依赖
 
 ```
-	dependencies{
-   		 implementation 'com.weishuai:inputboxwidget:1.0.0'
-	}
+  dependencies{
+      implementation 'com.weishuai:inputboxwidget:1.0.0'
+  }
 ```
 
 #### Step 2、在布局文件中增加InputBoxView,可以设置自定义属性
