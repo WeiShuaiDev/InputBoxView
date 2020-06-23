@@ -117,8 +117,7 @@
 <img src="https://github.com/WeiSmart/tablayout/blob/master/screenshots/weixin_pay.jpg" width=20%>
 <img src="https://github.com/WeiSmart/tablayout/blob/master/screenshots/zifubao_pay.jpg" width=20%>
 </div>
-
-
+---
 ## About me
 - #### Email:linwei9605@gmail.com   
 - #### Blog: [https://offer.github.io/](https://offer.github.io/)
