@@ -1,11 +1,20 @@
 # InputBoxView组件用法介绍
 
-## 前言
+![license](https://img.shields.io/github/license/WeiShuaiDev/InputBoxView.svg) ![version](https://img.shields.io/badge/JCenter-v1.7.8-blue.svg)
 
 该组件具备常见验证码输入框功能，定义输入框位数，显示模式等。在组件中有两个核心类，分别是VerifyCodeView(验证码输入框)、TelephoneNumberView(手机号输入框)，使用中提供两个创建方式：代码方式、布局方式。而且，为了创建过程中多配置问题，也会进行默认配置，简化创建过程。该页面只针对VerifyCodeView控件讲解，需要查看详细代码可以下载，框架内部提供一些常用案例。
 
 ###  效果图
-
+<div>
+	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985939276.png" width=30%>
+	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985952210.png" width=30%>
+	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985957413.png" width=30%>  
+</div>
+<div>
+	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985961526.png" width=30%>
+	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985965334.png" width=30%>
+	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985968852.png" width=30%>  
+</div>
 
 ### 方法
 
