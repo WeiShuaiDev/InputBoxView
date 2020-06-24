@@ -29,10 +29,10 @@ import java.lang.reflect.Field
  * @Time: 2020/6/4
  * @Contact: linwei9605@gmail.com
  * @Github: https://github.com/WeiShuaiDev
- * @Description:[InputBoxView] 输入框
+ * @Description:[VerifyCodeView] 输入框
  *-----------------------------------------------------------------------
  */
-class InputBoxView @JvmOverloads constructor(
+class VerifyCodeView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -72,49 +72,49 @@ class InputBoxView @JvmOverloads constructor(
     companion object {
         @JvmStatic
         fun Builder(context: Context): Builder {
-            return InputBoxView.Builder(context)
+            return VerifyCodeView.Builder(context)
         }
     }
 
 
     init {
-        val typeArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.InputBoxView)
+        val typeArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.VerifyCodeView)
         mInputBoxNumber =
-            typeArray.getInteger(R.styleable.InputBoxView_input_box_number, 4)
+            typeArray.getInteger(R.styleable.VerifyCodeView_input_box_number, 4)
 
-        mInputBoxType = typeArray.getInt(R.styleable.InputBoxView_input_box_type, 0)
+        mInputBoxType = typeArray.getInt(R.styleable.VerifyCodeView_input_box_type, 0)
 
         mInputBoxWidth =
             typeArray.getDimensionPixelSize(
-                R.styleable.InputBoxView_input_box_width,
+                R.styleable.VerifyCodeView_input_box_width,
                 UIUtils.dp2px(context, 30f)
             )
         mInputBoxTextColor = typeArray.getColor(
-            R.styleable.InputBoxView_input_box_text_color,
+            R.styleable.VerifyCodeView_input_box_text_color,
             context.color(R.color.colorInputBoxTextColor)
         )
 
         mInputBoxTextSize = typeArray.getDimensionPixelSize(
-            R.styleable.InputBoxView_input_box_text_size,
+            R.styleable.VerifyCodeView_input_box_text_size,
             UIUtils.sp2px(context, 8f)
         ).toFloat()
 
         mInputBoxBackground = typeArray.getResourceId(
-            R.styleable.InputBoxView_input_box_backgroud,
+            R.styleable.VerifyCodeView_input_box_backgroud,
             R.drawable.select_input_box_rim_bg
         )
         mInputBoxCursorType = typeArray.getResourceId(
-            R.styleable.InputBoxView_input_box_cursor_type,
+            R.styleable.VerifyCodeView_input_box_cursor_type,
             R.drawable.shape_input_box_cursor
         )
 
         mInputBoxCursorVisible =
-            typeArray.getBoolean(R.styleable.InputBoxView_input_box_cursor_visible, false)
+            typeArray.getBoolean(R.styleable.VerifyCodeView_input_box_cursor_visible, false)
 
-        mUseSpace = typeArray.hasValue(R.styleable.InputBoxView_input_box_spacing)
+        mUseSpace = typeArray.hasValue(R.styleable.VerifyCodeView_input_box_spacing)
         if (mUseSpace) {
             mInputBoxSpacing = typeArray.getDimensionPixelSize(
-                R.styleable.InputBoxView_input_box_spacing,
+                R.styleable.VerifyCodeView_input_box_spacing,
                 UIUtils.dp2px(context, 10f)
             )
         }
@@ -157,9 +157,9 @@ class InputBoxView @JvmOverloads constructor(
             setTextColor(mInputBoxTextColor)
             setPadding(0, 0, 0, 0)
             setBackgroundResource(mInputBoxBackground)
-            setOnKeyListener(this@InputBoxView)
-            addTextChangedListener(this@InputBoxView)
-            onFocusChangeListener = this@InputBoxView
+            setOnKeyListener(this@VerifyCodeView)
+            addTextChangedListener(this@VerifyCodeView)
+            onFocusChangeListener = this@VerifyCodeView
         }
     }
 
@@ -371,13 +371,13 @@ class InputBoxView @JvmOverloads constructor(
     }
 
     class Builder constructor(private var context: Context) {
-        private val mInputBoxView: InputBoxView = InputBoxView(context)
+        private val mVerifyCodeView: VerifyCodeView = VerifyCodeView(context)
 
         /**
          * 输入框的数量
          */
         fun setInputBoxNumber(number: Int): Builder {
-            mInputBoxView.mInputBoxNumber = number
+            mVerifyCodeView.mInputBoxNumber = number
             return this
         }
 
@@ -385,7 +385,7 @@ class InputBoxView @JvmOverloads constructor(
          * 输入类型
          */
         fun setInputBoxType(inputDataType: InputDataType): Builder {
-            mInputBoxView.mInputBoxType = inputDataType.type
+            mVerifyCodeView.mInputBoxType = inputDataType.type
             return this
         }
 
@@ -393,7 +393,7 @@ class InputBoxView @JvmOverloads constructor(
          * 输入框的宽度
          */
         fun setInputBoxWidth(width: Int): Builder {
-            mInputBoxView.mInputBoxWidth = width
+            mVerifyCodeView.mInputBoxWidth = width
             return this
         }
 
@@ -401,7 +401,7 @@ class InputBoxView @JvmOverloads constructor(
          * 输入框文字颜色
          */
         fun setInputBoxTextColorId(color: Int): Builder {
-            mInputBoxView.mInputBoxTextColor = context.color(color)
+            mVerifyCodeView.mInputBoxTextColor = context.color(color)
             return this
         }
 
@@ -409,7 +409,7 @@ class InputBoxView @JvmOverloads constructor(
          * 输入框文字颜色
          */
         fun setInputBoxTextColor(color: Int): Builder {
-            mInputBoxView.mInputBoxTextColor = color
+            mVerifyCodeView.mInputBoxTextColor = color
             return this
         }
 
@@ -417,7 +417,7 @@ class InputBoxView @JvmOverloads constructor(
          * 输入框文字大小
          */
         fun setInputBoxTextSize(size: Float): Builder {
-            mInputBoxView.mInputBoxTextSize = size
+            mVerifyCodeView.mInputBoxTextSize = size
             return this
         }
 
@@ -425,7 +425,7 @@ class InputBoxView @JvmOverloads constructor(
          * 输入框背景
          */
         fun setInputBoxBackground(background: Int): Builder {
-            mInputBoxView.mInputBoxBackground = background
+            mVerifyCodeView.mInputBoxBackground = background
             return this
         }
 
@@ -433,7 +433,7 @@ class InputBoxView @JvmOverloads constructor(
          * 光标样式
          */
         fun setInputBoxCursorType(type: Int): Builder {
-            mInputBoxView.mInputBoxCursorType = type
+            mVerifyCodeView.mInputBoxCursorType = type
             return this
         }
 
@@ -441,7 +441,7 @@ class InputBoxView @JvmOverloads constructor(
          * 是否隐藏光标
          */
         fun setInputBoxCursorVisible(visible: Boolean): Builder {
-            mInputBoxView.mInputBoxCursorVisible = visible
+            mVerifyCodeView.mInputBoxCursorVisible = visible
             return this
         }
 
@@ -449,9 +449,9 @@ class InputBoxView @JvmOverloads constructor(
          * 输入框间距
          */
         fun setInputBoxSpacing(spacing: Int): Builder {
-            mInputBoxView.mInputBoxSpacing = spacing
+            mVerifyCodeView.mInputBoxSpacing = spacing
 
-            mInputBoxView.mUseSpace = spacing >= 0
+            mVerifyCodeView.mUseSpace = spacing >= 0
             return this
         }
 
@@ -459,16 +459,16 @@ class InputBoxView @JvmOverloads constructor(
          * 事件监听
          */
         fun setOnInputDataListener(listener: OnInputDataListener): Builder {
-            mInputBoxView.mListener = listener
+            mVerifyCodeView.mListener = listener
             return this
         }
 
-        fun build(): InputBoxView {
-            if (mInputBoxView.childCount > 0)
-                mInputBoxView.removeAllViews()
+        fun build(): VerifyCodeView {
+            if (mVerifyCodeView.childCount > 0)
+                mVerifyCodeView.removeAllViews()
 
-            mInputBoxView.addChildViewToContainer()
-            return mInputBoxView
+            mVerifyCodeView.addChildViewToContainer()
+            return mVerifyCodeView
         }
     }
 }

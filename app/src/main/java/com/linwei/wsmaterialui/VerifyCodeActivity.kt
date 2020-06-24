@@ -1,10 +1,8 @@
 package com.linwei.wsmaterialui
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
-import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -12,7 +10,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import com.linwei.inputboxview.enum.InputDataType
 import com.linwei.inputboxview.listener.OnInputDataListener
-import com.linwei.inputboxview.widget.InputBoxView
+import com.linwei.inputboxview.widget.VerifyCodeView
 import kotlinx.android.synthetic.main.activity_verify_code.*
 
 class VerifyCodeActivity : AppCompatActivity() {
@@ -61,7 +59,6 @@ class VerifyCodeActivity : AppCompatActivity() {
     /**
      * 初始化数据
      */
-    @SuppressLint("StringFormatMatches")
     private fun initData() {
         mTelephoneNumber = intent.getStringExtra(MainActivity.TELEPHONE_NUMBER)
         mTvTitle.text = getString(R.string.activity_verify_code_title, mTelephoneNumber)
@@ -119,7 +116,7 @@ class VerifyCodeActivity : AppCompatActivity() {
      * 通过代码方式，创建InputBoxView控件
      */
     private fun initInputBoxView() {
-        val inputBoxView: InputBoxView = InputBoxView.Builder(this)
+        val verifyCodeView: VerifyCodeView = VerifyCodeView.Builder(this)
             .setInputBoxType(InputDataType.NUMBER)
             .setInputBoxCursorVisible(true)
             .setInputBoxBackground(R.drawable.select_input_box_line_bg)
@@ -132,7 +129,7 @@ class VerifyCodeActivity : AppCompatActivity() {
             .build()
 
         mLlRootView.addView(
-            inputBoxView,
+            verifyCodeView,
             LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT

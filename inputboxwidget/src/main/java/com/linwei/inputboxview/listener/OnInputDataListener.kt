@@ -2,7 +2,7 @@ package com.linwei.inputboxview.listener
 
 import android.text.Editable
 import android.view.View
-import com.linwei.inputboxview.widget.InputBoxView
+import com.linwei.inputboxview.widget.VerifyCodeView
 
 /**
  * ---------------------------------------------------------------------
@@ -10,7 +10,7 @@ import com.linwei.inputboxview.widget.InputBoxView
  * @Time: 2020/6/8
  * @Contact: linwei9605@gmail.com
  * @Github: https://github.com/WeiShuaiDev
- * @Description:[InputBoxView] 事件回调
+ * @Description:[VerifyCodeView] 事件回调
  *-----------------------------------------------------------------------
  */
 interface OnInputDataListener {

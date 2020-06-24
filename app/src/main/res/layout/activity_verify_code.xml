@@ -33,7 +33,7 @@
             android:textColor="@color/colorLoginSubTitle"
             android:textSize="@dimen/sp_16" />
 
-        <com.linwei.inputboxview.widget.InputBoxView
+        <com.linwei.inputboxview.widget.VerifyCodeView
             android:id="@+id/mInputBoxView1"
             style="@style/WrapAndWrap"
             android:layout_marginTop="@dimen/dp_20"
@@ -47,7 +47,7 @@
             app:input_box_width="30dp" />
 
 
-        <com.linwei.inputboxview.widget.InputBoxView
+        <com.linwei.inputboxview.widget.VerifyCodeView
             android:id="@+id/mInputBoxView2"
             style="@style/WrapAndWrap"
             android:layout_marginTop="@dimen/dp_20"
@@ -62,7 +62,7 @@
             app:input_box_width="30dp" />
 
 
-        <com.linwei.inputboxview.widget.InputBoxView
+        <com.linwei.inputboxview.widget.VerifyCodeView
             android:id="@+id/mInputBoxView3"
             style="@style/WrapAndWrap"
             android:layout_marginTop="@dimen/dp_20"
@@ -70,11 +70,11 @@
             android:visibility="gone"
             app:input_box_backgroud="@color/colorWhite"
             app:input_box_cursor_type="@drawable/shape_input_box_cursor"
-            app:input_box_number="4"
+            app:input_box_number="6"
             app:input_box_spacing="1dp"
             app:input_box_text_color="@color/colorInputBoxTextColor"
-            app:input_box_text_size="6sp"
-            app:input_box_type="number"
+            app:input_box_text_size="8sp"
+            app:input_box_type="numberPassword"
             app:input_box_width="30dp" />
 
     </LinearLayout>

@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
             if (checkTelephoneNumber()) {
                 val intent = Intent(this, VerifyTelephoneNumberActivity::class.java)
-                intent.putExtra(TELEPHONE_NUMBER, mEtTelNumber.text)
+                intent.putExtra(TELEPHONE_NUMBER, mEtTelNumber.text.toString())
                 startActivity(intent)
             }
         }
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         mBtComplete.setOnClickListener {
             if (checkTelephoneNumber()) {
                 val intent = Intent(this, VerifyCodeActivity::class.java)
-                intent.putExtra(TELEPHONE_NUMBER, mEtTelNumber.text)
+                intent.putExtra(TELEPHONE_NUMBER, mEtTelNumber.text.toString())
                 startActivity(intent)
             }
         }

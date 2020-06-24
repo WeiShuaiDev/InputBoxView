@@ -149,8 +149,8 @@ class TelephoneNumberView @JvmOverloads constructor(
             addView(childTextView)
         }
 
-        val childInputBoxView: InputBoxView = initChildInputBoxView()
-        addView(childInputBoxView)
+        val childVerifyCodeView: VerifyCodeView = initChildInputBoxView()
+        addView(childVerifyCodeView)
 
         for (index: Int in mInputBoxEndIndex until mTelephoneNumberSize) {
             val childTextView: TextView = initChildTextView(index)
@@ -174,11 +174,11 @@ class TelephoneNumberView @JvmOverloads constructor(
     }
 
     /**
-     * 创建 [InputBoxView] 输入框控件
-     * @return intpuBoxView [InputBoxView]
+     * 创建 [VerifyCodeView] 输入框控件
+     * @return intpuBoxView [VerifyCodeView]
      */
-    private fun initChildInputBoxView(): InputBoxView {
-        return InputBoxView.Builder(context)
+    private fun initChildInputBoxView(): VerifyCodeView {
+        return VerifyCodeView.Builder(context)
             .setInputBoxNumber(mInputBoxSize)
             .setInputBoxBackground(mInputBoxBackground)
             .setInputBoxSpacing(mInputBoxSpacing)
