@@ -6,14 +6,14 @@
 
 ###  效果图
 <div>
-	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985939276.png">
-	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985952210.png">
-	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985957413.png">  
+	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985939276.png" width=80%>
+	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985952210.png" width=80%>
+	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985957413.png" width=80%>  
 </div>
 <div>
-	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985961526.png">
-	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985965334.png">
-	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985968852.png">  
+	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985961526.png" width=80%>
+	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985965334.png" width=80%>
+	<img src="https://raw.githubusercontent.com/WeiShuaiDev/InputBoxView/master/screenshots/1592985968852.png" width=80%>  
 </div>
 
 ### 方法
